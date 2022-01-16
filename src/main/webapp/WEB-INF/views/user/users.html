@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "User">
+<head>
+    <meta charset="UTF-8" />
+    <title>Loop</title>
+    <style>table th, table td {padding: 10px;}</style>
+</head>
+<body>
+<h1>cars list</h1>
+<table border="1">
+    <tr>
+        <th>index</th>
+        <th>name</th>
+        <th>secondName</th>
+        <th>number</th>
+        <th>e-mail</th>
+    </tr>
+    <tr th:each="User, state : ${userList}">
+        <td th:utext="${state.index}">index</td>
+        <td th:utext="${User.getName()}"></td>
+        <td th:utext="${User.getSecondName()}"></td>
+        <td th:utext="${Car.getNumber()}"></td>
+        <td th:utext="${Car.getMail()}"></td>
+    </tr>
+</table>
+</body>
+</html>
