@@ -1,6 +1,8 @@
 package src.config;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,14 +13,20 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import src.model.User;
+import src.service.UserServiceImp;
+
 import javax.sql.DataSource;
 import java.util.HashMap;
 
 
 @Configuration
 @PropertySource("classpath:db.properties")
+@EnableTransactionManagement
 @ComponentScan(value = "src")
 public class HiderConfig {
+
     @Autowired
     private Environment env;
 
@@ -27,7 +35,7 @@ public class HiderConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(userDataSource());
-        em.setPackagesToScan(new String[]{"hiber.model"});
+        em.setPackagesToScan("src");
         em.setJpaVendorAdapter(getAdapter());
         em.setJpaDialect(getAdapter().getJpaDialect());
         HashMap<String, Object> properties = new HashMap<>();
@@ -63,5 +71,6 @@ public class HiderConfig {
 
         return transactionManager;
     }
+
 }
 

@@ -3,24 +3,20 @@ package src.service;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import src.dao.UserDao;
 import src.model.User;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 
 @Service
 @Transactional
-public class UserServiceImp implements UserService, InitializingBean {
+public class UserServiceImp implements UserService {
 
    @Autowired
    private UserDao userDao;
-
-
 
 
    @Override
@@ -35,23 +31,22 @@ public class UserServiceImp implements UserService, InitializingBean {
    }
 
    @Override
-   public void detele(User user) {
-      userDao.delete(user);
+   public void deteleById(long id) {
+      userDao.deleteById(id);
    }
 
    @Override
-   public void update(User user) {
-      userDao.update(user);
-   }
+   public void update(long id, User userUpdater) {
 
+      userDao.update(id, userUpdater);
+   }
 
    @Override
-   public void afterPropertiesSet() throws Exception {
-//      User[] users=new User[] {
-//              new User("Ivan", "Ivanov", "89537008209", "Ivan@mail.ru"),
-//              new User("Petr", "Petrov", "89997008209", "Petr@mail.ru")
-//      };
-//      add(users[0]);
-//      add(users[1]);
+   public User getUserById(long id){
+      return userDao.getUserById(id);
    }
+
+
+
+
 }

@@ -3,7 +3,6 @@ package src.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 
@@ -12,7 +11,7 @@ public class User {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
@@ -34,6 +33,10 @@ public class User {
     @NotEmpty(message = "mail should not be empty")
     @Email(message = "Invalid mail")
     private String mail;
+
+    public User(){
+
+    }
 
     public User(String name, String secondName, String number, String mail) {
         this.name = name;
